@@ -1,7 +1,7 @@
 .tmp
 bower_components
 node_modules
-public
+publish
 package-lock.json
 yarn.lock
 yarn-error.log

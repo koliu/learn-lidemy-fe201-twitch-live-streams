@@ -16,9 +16,9 @@
                 "isDefault": true
             },
             "presentation": {
-                "reveal": "always",
-                "focus": true,
-                "panel": "shared"
+                "reveal": "always", // 是否將任務開啟的 terminal 顯示到前台
+                "focus": true, // 是否將鼠標定位到該 terminal 上
+                "panel": "shared" // tasks 是否共用 terminal
             }
         }
     ]

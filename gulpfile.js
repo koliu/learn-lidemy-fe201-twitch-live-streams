@@ -76,7 +76,7 @@ gulp.task("babel", () => {
         // .pipe($.babel({
         //     presets: ['env']
         // }))
-        .pipe($.concat("all.js"))
+        // .pipe($.concat("all.js"))
         // .pipe(pipeByEnv(envs.prod, $.uglify({ // put it after compiled & concat
         //     compress: {
         //         drop_console: true

@@ -11,14 +11,6 @@ html(lang="en")
     body
         div.container
             div.list
-                - var i = 0;
-                while i < 9
-                    - var j = i++;
-                    div.item
-                        div(class='img img-' + j)
-                        div(class='content')
-                            div.avatar
-                                img(src='https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/v1511845116000/photosp/c6a82f0d-2119-4312-86bb-974177cd7dde/stock-photo-daytime-nobody-outdoors-grass-view-from-above-dog-sitting-animals-puppy-c6a82f0d-2119-4312-86bb-974177cd7dde.jpg')
-                            div.desc
-                                p Channel
-                                p Anchor
+        <!-- build:js -->
+        script(src="./js/ajax.js")
+        <!-- endbuild -->

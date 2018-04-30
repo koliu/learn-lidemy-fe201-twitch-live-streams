@@ -61,7 +61,7 @@ function loadTwitchData() {
 
         const { streams } = data;
         const lists = document.querySelector(".list");
-        for (let stream of streams) {
+        for (const stream of streams) {
             lists.innerHTML += genItem(stream);
             _offset++;
         }
@@ -88,11 +88,41 @@ function genItem(data) {
     `;
 }
 
+function getScrollXY() {
+    let x = 0,
+        y = 0;
+
+    if (typeof(window.pageYOffset) == 'number') {
+        //Netscape compliant
+        y = window.pageYOffset;
+        x = window.pageXOffset;
+    } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
+        //DOM compliant
+        y = document.body.scrollTop;
+        x = document.body.scrollLeft;
+    } else if (document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
+        //IE6 standards compliant mode
+        y = document.documentElement.scrollTop;
+        x = document.documentElement.scrollLeft;
+    }
+    return { x, y };
+}
+
+function getDocHeight() {
+    return Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.body.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight,
+        document.documentElement.clientHeight,
+    );
+}
+
 function isReachBottom(prefix = 0) {
-    const scrollHeight = window.pageYOffset;
+    const scrollHeight = getScrollXY().y;
     const windowInnerHeight = window.innerHeight;
-    const bodyHeight = document.body.offsetHeight;
-    console.log(`scrollHeight=${scrollHeight}, windowInnerHeight=${windowInnerHeight}, bodyHeight=${bodyHeight}, return=${(bodyHeight - (windowInnerHeight + scrollHeight))<=prefix}`);
+    const bodyHeight = getDocHeight();
     return bodyHeight - (windowInnerHeight + scrollHeight) <= prefix;
 }
 

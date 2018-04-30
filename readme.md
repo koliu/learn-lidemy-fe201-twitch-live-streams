@@ -1,6 +1,7 @@
 # Learn-Lidemy-FE201-Twitch-Live-Streams
 ---
 ## HW1: [CSS 九宮格切板](https://codepen.io/KOLiu/pen/pLMbOM?editors=0100)
+
     ### 主要使用技巧
     - 利用 flex 排版
     - 利用 border-radius 來產生圓角矩形
@@ -14,6 +15,7 @@
     4. http://zh-tw.learnlayout.com/position.html
 
 ## HW2: [Hover effects](https://codepen.io/KOLiu/pen/rvBBbo?editors=1100)
+
     ### 主要使用技巧
     - 利用 transition, box-shadow 為 hover 加入漸變特效
 
@@ -24,6 +26,7 @@
     4. https://www.w3schools.com/cssref/css3_pr_box-shadow.asp
 
 ## HW4: Ajax & Twitch API
+
     ### 主要使用技巧
     - 利用 Promise & XMLHttpRequest 進行非同步串接 Twitch 的 Streams
 
@@ -79,7 +82,8 @@
     ### 參考：
     * [Node.js error-first callback](http://eddychang.me/blog/javascript/57-node-js-error-first-callback.html)
 
-## HW5: Placeholder & Infinite Scroll
+## HW5 - Placeholder & Infinite Scroll
+
     ### 主要使用技巧
     - 利用 Vanilla JS 計算 Scroll 高度後符合條件後，再透過 Ajax 載入新的資料
         - 流程：
@@ -106,4 +110,21 @@
     * [Vanilla JS AJAX, TIA, Infinite Scroll](https://codepen.io/timothyli/pen/JXVMZY?editors=0010)
     * [About height & width](https://codepen.io/KOLiu/pen/rvjPNj)
     * [The Window Object](https://www.w3schools.com/jsref/obj_window.asp)
+
+## HW6: Vanilla JS
+
+    ### Note:
+    * 缺點：
+        * 必須自行注意瀏覽器相容性
+        * 團隊協作困難
+        * 較難維護
+    * 優點：
+        * 效能高(規模小作用不大)
+        * 檔案大小
+
+    ### 參考：
+    * [YOU MIGHT NOT NEED JQUERY](http://youmightnotneedjquery.com/)
+    * [document.querySelector](https://developer.mozilla.org/zh-TW/docs/Web/API/Document/querySelector)
+    * [You-Dont-Need-jQuery](https://github.com/nefe/You-Dont-Need-jQuery/blob/master/README.zh-CN.md)
+    * [javascript 30](https://javascript30.com/)
 ---

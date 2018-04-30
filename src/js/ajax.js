@@ -5,14 +5,12 @@ let _game = "League of Legends",
     _loading = false;
 
 const twitchAPI = {
+    baseURL: "https://api.twitch.tv/kraken/streams/",
     headers: {
         "client-id": "2ptsb12qaqxechb7k5u7332ranqezr"
-
     },
-    getURI: (game, limit, offset, lan) => {
-        let baseURL = "https://api.twitch.tv/kraken/streams/";
-        let clientId = "2ptsb12qaqxechb7k5u7332ranqezr";
-        return `${baseURL}?game=${game}&limit=${limit}&offset=${offset}&language=${lan}`;
+    getURI(game, limit, offset, lan) {
+        return `${this.baseURL}?game=${game}&limit=${limit}&offset=${offset}&language=${lan}`;
     }
 }
 
@@ -91,9 +89,9 @@ function genItem(data) {
 }
 
 function isReachBottom(prefix = 0) {
-    let scrollHeight = window.pageYOffset;
-    let windowInnerHeight = window.innerHeight;
-    let bodyHeight = document.body.offsetHeight;
+    const scrollHeight = window.pageYOffset;
+    const windowInnerHeight = window.innerHeight;
+    const bodyHeight = document.body.offsetHeight;
     console.log(`scrollHeight=${scrollHeight}, windowInnerHeight=${windowInnerHeight}, bodyHeight=${bodyHeight}, return=${(bodyHeight - (windowInnerHeight + scrollHeight))<=prefix}`);
     return bodyHeight - (windowInnerHeight + scrollHeight) <= prefix;
 }

@@ -4,7 +4,7 @@ const twitchAPI = {
 
     },
     getURI: (game = "League of Legends", limit = 20, offset = 0, lan = "zh-TW") => {
-        var baseURL = "https://api.twitch.tv/kraken/streams/";
+        let baseURL = "https://api.twitch.tv/kraken/streams/";
         let clientId = "2ptsb12qaqxechb7k5u7332ranqezr";
         return `${baseURL}?game=${game}&limit=${limit}&offset=${offset}&language=${lan}`;
     }
@@ -36,23 +36,33 @@ const ajax = (url, method, headers = {}, data = null) => {
     });
 };
 
+let game = "League of Legends",
+    limit = 20,
+    offset = 0,
+    lan = "zh-TW"
+
 function getTwitchData(cb) {
-    ajax(twitchAPI.getURI(), "GET", twitchAPI.headers)
-        .then(result => cb(null, JSON.parse(result)))
+    ajax(twitchAPI.getURI(game, limit, offset, lan), "GET", twitchAPI.headers)
+        .then(result => {
+            cb(null, JSON.parse(result));
+            offset += limit;
+        })
         .catch(err => cb(err));
 }
 
-getTwitchData((err, data) => {
-    if (err) {
-        return console.log(err);
-    }
+function loadTwitchData() {
+    getTwitchData((err, data) => {
+        if (err) {
+            return console.log(err);
+        }
 
-    const { streams } = data;
-    const lists = document.querySelector(".list");
-    for (let stream of streams) {
-        lists.innerHTML += genItem(stream);
-    }
-});
+        const { streams } = data;
+        const lists = document.querySelector(".list");
+        for (let stream of streams) {
+            lists.innerHTML += genItem(stream);
+        }
+    });
+}
 
 function genItem(data) {
     return `
@@ -70,3 +80,5 @@ function genItem(data) {
     </div>
     `;
 }
+
+window.addEventListener("load", loadTwitchData());

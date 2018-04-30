@@ -78,4 +78,14 @@
 
     ### 參考：
     * [Node.js error-first callback](http://eddychang.me/blog/javascript/57-node-js-error-first-callback.html)
+
+## HW5: Placeholder & Infinite Scroll
+    ### 主要使用技巧
+    - 利用 Vanilla JS 計算 Scroll 高度後符合條件後，再透過 Ajax 載入新的資料
+
+    ### 參考：
+    * [Check if a user has scrolled to the bottom](https://stackoverflow.com/questions/3898130/check-if-a-user-has-scrolled-to-the-bottom)
+    * [Vanilla JS AJAX, TIA, Infinite Scroll](https://codepen.io/timothyli/pen/JXVMZY?editors=0010)
+    * [About height & width](https://codepen.io/KOLiu/pen/rvjPNj)
+    * [The Window Object](https://www.w3schools.com/jsref/obj_window.asp)
 ---

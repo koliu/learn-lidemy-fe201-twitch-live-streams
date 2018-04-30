@@ -143,3 +143,32 @@ body {
     right: 10px;
     z-index: 9999;
 }
+
+.title {
+    font-size: 48px;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.lang {
+    font-size: 24px;
+    text-align: center;
+}
+
+.lang div {
+    display: inline-block;
+    color: white;
+    margin-right: 10px;
+    height: 30px;
+}
+
+.lang div:hover {
+    background-color: skyblue;
+    cursor: pointer;
+}
+
+.lang-selected {
+    background-color: skyblue;
+    cursor: none;
+}

@@ -82,9 +82,13 @@
 ## HW5: Placeholder & Infinite Scroll
     ### 主要使用技巧
     - 利用 Vanilla JS 計算 Scroll 高度後符合條件後，再透過 Ajax 載入新的資料
-        - 計算高度：
-            - body.offsetHeight ~= window.innerHeight + window.pageYOffset
-            - 通常不會真的到最底部才載入，會預留一定高度就開始載入
+        - 流程：
+            1. 計算高度：
+                - body.offsetHeight ~= window.innerHeight + window.pageYOffset
+                - 通常不會真的到最底部才載入，會預留一定高度就開始載入
+            2. 載入資料：
+                - 利用 _loading 避免重複發出 request
+                - 利用 offset 參數來向 Twitch 發出條件查詢 request
     - 利用 PlaceHolder 預先顯示佔位圖，以避免網速過慢導致畫面顯示不順暢
         - 先預設 img container 高度避免圖片未載入時跑版
         - 改用 base64 或存在本機端來加速顯示佔位圖:

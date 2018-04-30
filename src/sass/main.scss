@@ -113,14 +113,18 @@ body {
     @extend %top-radius;
 }
 
+@mixin ellipsis {
+    /* no newline */
+    white-space: nowrap;
+    /* crop text */
+    overflow: hidden;
+    /* ... */
+    text-overflow: ellipsis;
+}
+
 .list p {
     max-width: 220px;
-    white-space: nowrap;
-    /* no newline */
-    overflow: hidden;
-    /* crop text */
-    text-overflow: ellipsis;
-    /* ... */
+    @include ellipsis;
 }
 
 .btnLoadNext20 {

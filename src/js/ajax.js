@@ -50,7 +50,6 @@ function getTwitchData(cb) {
     ajax(twitchAPI.getURI(_game, _limit, _offset, _lan), "GET", twitchAPI.headers)
         .then(result => {
             cb(null, JSON.parse(result));
-            _offset += _limit;
         })
         .catch(err => cb(err));
 }
@@ -65,7 +64,11 @@ function loadTwitchData() {
         const lists = document.querySelector(".list");
         for (let stream of streams) {
             lists.innerHTML += genItem(stream);
+            _offset++;
         }
+        // const streamsLen = Array.of(streams).length;
+        // console.log(`streamsLen=${streamsLen}`)
+        // _offset += Array.of(streams).length;
     });
 }
 
@@ -90,12 +93,14 @@ function isReachBottom() {
     let scrollHeight = window.pageYOffset;
     let windowInnerHeight = window.innerHeight;
     let bodyHeight = document.body.offsetHeight;
+    console.log(`bh=${bodyHeight}, wih=${windowInnerHeight}, sh=${scrollHeight}, return=${bodyHeight - (windowInnerHeight + scrollHeight)}`);
     return bodyHeight - (windowInnerHeight + scrollHeight) <= 0;
 }
 
 window.addEventListener("load", loadTwitchData());
 window.addEventListener("scroll", () => {
     if (isReachBottom()) {
+        console.log(`offset=${_offset}`);
         loadTwitchData();
     }
 });

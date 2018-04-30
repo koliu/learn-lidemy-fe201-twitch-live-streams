@@ -82,6 +82,11 @@
 ## HW5: Placeholder & Infinite Scroll
     ### 主要使用技巧
     - 利用 Vanilla JS 計算 Scroll 高度後符合條件後，再透過 Ajax 載入新的資料
+    - 利用 PlaceHolder 預先顯示佔位圖，以避免網速過慢導致畫面顯示不順暢
+        - 先預設 img container 高度避免圖片未載入時跑版
+        - 改用 base64 或存在本機端來加速顯示佔位圖
+        - 要測試網速過慢情況，可用 Chrome Dev Tools: Network -> Presets
+        - 利用 opacity 及 onload event 在圖片載入完成後漸變顯示圖片
 
     ### 參考：
     * [Check if a user has scrolled to the bottom](https://stackoverflow.com/questions/3898130/check-if-a-user-has-scrolled-to-the-bottom)

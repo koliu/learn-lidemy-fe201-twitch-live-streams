@@ -66,16 +66,16 @@ function loadTwitchData() {
             lists.innerHTML += genItem(stream);
             _offset++;
         }
-        // const streamsLen = Array.of(streams).length;
-        // console.log(`streamsLen=${streamsLen}`)
-        // _offset += Array.of(streams).length;
     });
 }
 
 function genItem(data) {
     return `
     <div class="item">
-        <div class="img" style="background-image: url(${data.preview.medium})"></div>
+        <div class="preview">
+            <div class="placeholder"></div>
+            <img src="${data.preview.medium}" onload="this.style.opacity=1" />
+        </div>
         <div class="content">
             <div class="avatar">
                 <img src="${data.channel.logo}" />
@@ -93,14 +93,12 @@ function isReachBottom() {
     let scrollHeight = window.pageYOffset;
     let windowInnerHeight = window.innerHeight;
     let bodyHeight = document.body.offsetHeight;
-    console.log(`bh=${bodyHeight}, wih=${windowInnerHeight}, sh=${scrollHeight}, return=${bodyHeight - (windowInnerHeight + scrollHeight)}`);
     return bodyHeight - (windowInnerHeight + scrollHeight) <= 0;
 }
 
 window.addEventListener("load", loadTwitchData());
 window.addEventListener("scroll", () => {
     if (isReachBottom()) {
-        console.log(`offset=${_offset}`);
         loadTwitchData();
     }
 });

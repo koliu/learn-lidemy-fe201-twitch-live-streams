@@ -77,7 +77,7 @@ function genItem(data) {
         </div>
         <div class="content">
             <div class="avatar">
-                <img src="${data.channel.logo}" />
+                <img src="${data.channel.logo}" onload="this.style.opacity=1" />
             </div>
             <div class="desc">
                 <p>${data.channel.status}</p>

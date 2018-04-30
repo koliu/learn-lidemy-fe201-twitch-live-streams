@@ -63,6 +63,7 @@ body {
     border-radius: 50%;
     margin-right: 15px;
     transition: width .3s, height .3s;
+    position: relative;
 }
 
 .avatar:hover {
@@ -72,6 +73,9 @@ body {
 
 .avatar img {
     width: 100%;
+    position: relative;
+    opacity: 0;
+    transition: all 0.5s ease-in;
 }
 
 .desc {
@@ -92,7 +96,8 @@ body {
     @extend %top-radius;
 }
 
-.preview::before {
+.preview::before,
+.avatar::before {
     content: "";
     position: absolute;
     top: 0;

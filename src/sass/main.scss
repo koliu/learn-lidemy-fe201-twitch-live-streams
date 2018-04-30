@@ -96,8 +96,7 @@ body {
     @extend %top-radius;
 }
 
-.preview::before,
-.avatar::before {
+%placeholder {
     content: "";
     position: absolute;
     top: 0;
@@ -119,6 +118,11 @@ body {
     @extend %top-radius;
 }
 
+.preview::before,
+.avatar::before {
+    @extend %placeholder;
+}
+
 @mixin ellipsis {
     /* no newline */
     white-space: nowrap;
@@ -137,4 +141,5 @@ body {
     position: fixed;
     top: 10px;
     right: 10px;
+    z-index: 9999;
 }

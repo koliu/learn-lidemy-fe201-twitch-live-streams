@@ -1,7 +1,8 @@
 let _game = "League of Legends",
     _limit = 20,
     _offset = 0,
-    _lan = "zh-TW";
+    _lan = "zh-TW",
+    _loading = false;
 
 const twitchAPI = {
     headers: {
@@ -66,6 +67,7 @@ function loadTwitchData() {
             lists.innerHTML += genItem(stream);
             _offset++;
         }
+        _loading = false;
     });
 }
 
@@ -88,16 +90,19 @@ function genItem(data) {
     `;
 }
 
-function isReachBottom() {
+function isReachBottom(prefix = 0) {
     let scrollHeight = window.pageYOffset;
     let windowInnerHeight = window.innerHeight;
     let bodyHeight = document.body.offsetHeight;
-    return bodyHeight - (windowInnerHeight + scrollHeight) <= 0;
+    console.log(`scrollHeight=${scrollHeight}, windowInnerHeight=${windowInnerHeight}, bodyHeight=${bodyHeight}, return=${(bodyHeight - (windowInnerHeight + scrollHeight))<=prefix}`);
+    return bodyHeight - (windowInnerHeight + scrollHeight) <= prefix;
 }
 
 window.addEventListener("load", loadTwitchData());
 window.addEventListener("scroll", () => {
-    if (isReachBottom()) {
+    if (!_loading && isReachBottom(300)) {
+        _loading = true;
+        console.log(`offset=${_offset}`)
         loadTwitchData();
     }
 });

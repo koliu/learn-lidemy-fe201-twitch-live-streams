@@ -1,9 +1,14 @@
+let _game = "League of Legends",
+    _limit = 20,
+    _offset = 0,
+    _lan = "zh-TW";
+
 const twitchAPI = {
     headers: {
         "client-id": "2ptsb12qaqxechb7k5u7332ranqezr"
 
     },
-    getURI: (game = "League of Legends", limit = 20, offset = 0, lan = "zh-TW") => {
+    getURI: (game, limit, offset, lan) => {
         let baseURL = "https://api.twitch.tv/kraken/streams/";
         let clientId = "2ptsb12qaqxechb7k5u7332ranqezr";
         return `${baseURL}?game=${game}&limit=${limit}&offset=${offset}&language=${lan}`;
@@ -42,10 +47,10 @@ let game = "League of Legends",
     lan = "zh-TW"
 
 function getTwitchData(cb) {
-    ajax(twitchAPI.getURI(game, limit, offset, lan), "GET", twitchAPI.headers)
+    ajax(twitchAPI.getURI(_game, _limit, _offset, _lan), "GET", twitchAPI.headers)
         .then(result => {
             cb(null, JSON.parse(result));
-            offset += limit;
+            _offset += _limit;
         })
         .catch(err => cb(err));
 }
@@ -81,4 +86,16 @@ function genItem(data) {
     `;
 }
 
+function isReachBottom() {
+    let scrollHeight = window.pageYOffset;
+    let windowInnerHeight = window.innerHeight;
+    let bodyHeight = document.body.offsetHeight;
+    return bodyHeight - (windowInnerHeight + scrollHeight) <= 0;
+}
+
 window.addEventListener("load", loadTwitchData());
+window.addEventListener("scroll", () => {
+    if (isReachBottom()) {
+        loadTwitchData();
+    }
+});

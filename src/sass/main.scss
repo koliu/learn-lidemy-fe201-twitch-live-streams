@@ -92,7 +92,8 @@ body {
     @extend %top-radius;
 }
 
-.placeholder {
+.preview::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;

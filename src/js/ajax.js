@@ -73,7 +73,6 @@ function genItem(data) {
     return `
     <div class="item">
         <div class="preview">
-            <div class="placeholder"></div>
             <img src="${data.preview.medium}" onload="this.style.opacity=1" />
         </div>
         <div class="content">

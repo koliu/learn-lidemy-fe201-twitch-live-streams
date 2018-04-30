@@ -87,6 +87,7 @@
         - 改用 base64 或存在本機端來加速顯示佔位圖
         - 要測試網速過慢情況，可用 Chrome Dev Tools: Network -> Presets
         - 利用 opacity 及 onload event 在圖片載入完成後漸變顯示圖片
+        - 可以利用 .preview::before 來取代 div placeholder
 
     ### 參考：
     * [Check if a user has scrolled to the bottom](https://stackoverflow.com/questions/3898130/check-if-a-user-has-scrolled-to-the-bottom)

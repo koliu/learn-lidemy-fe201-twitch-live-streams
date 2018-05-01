@@ -139,4 +139,13 @@
     * [ES6 Modules in Chrome M61+](https://medium.com/dev-channel/es6-modules-in-chrome-canary-m60-ba588dfb8ab7)
     * [ECMAScript modules in browsers](https://jakearchibald.com/2017/es-modules-in-browsers/)
     * [Real World Experience with ES6 Modules in Browsers](https://salomvary.com/es6-modules-in-browsers.html)
+
+## HW7: i18n
+
+    ### Note:
+    * 利用 window.I18N 全域物件載入不同的語言檔(lang-*.js)
+    * 可依選擇的 lang 來切換頻道
+    * 依 window.I18N 自動產生頻道切換按鈕
+
+
 ---

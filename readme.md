@@ -127,4 +127,15 @@
     * [document.querySelector](https://developer.mozilla.org/zh-TW/docs/Web/API/Document/querySelector)
     * [You-Dont-Need-jQuery](https://github.com/nefe/You-Dont-Need-jQuery/blob/master/README.zh-CN.md)
     * [javascript 30](https://javascript30.com/)
+
+## 模組化
+
+    ### Note
+    * 必須搭配 static Server 才能測試
+    * 在 HTML 中必須使用 <script type="module"> 引入使用模組化語法的 js，不然會產生 Uncaught ReferenceError: Unexpected token export，不過使用 type="module" 會導致 onclick 觸發其中的 function 失效(Uncaught ReferenceError: changeLanguage is not defined) >> **待解決**
+
+    ### 參考
+    * [ES6 Modules in Chrome M61+](https://medium.com/dev-channel/es6-modules-in-chrome-canary-m60-ba588dfb8ab7)
+    * [ECMAScript modules in browsers](https://jakearchibald.com/2017/es-modules-in-browsers/)
+    * [Real World Experience with ES6 Modules in Browsers](https://salomvary.com/es6-modules-in-browsers.html)
 ---

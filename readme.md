@@ -132,7 +132,8 @@
 
     ### Note
     * 必須搭配 static Server 才能測試
-    * 在 HTML 中必須使用 <script type="module"> 引入使用模組化語法的 js，不然會產生 Uncaught ReferenceError: Unexpected token export，不過使用 type="module" 會導致 onclick 觸發其中的 function 失效(Uncaught ReferenceError: changeLanguage is not defined) >> **待解決**
+    * 在 HTML 中必須使用 <script type="module"> 引入使用模組化語法的 js，不然會產生 Uncaught ReferenceError: Unexpected token export，不過使用 type="module" 會導致 onclick 觸發其中的 function 失效(Uncaught ReferenceError: changeLanguage is not defined)
+    * onclick 觸發失效的解決方法是使用 addEventListener("click",fn)，原因是 onclick 的作用域為 module script 不同，請參考 [Uncaught ReferenceError: function is not defined with onclick](https://stackoverflow.com/questions/17378199/uncaught-referenceerror-function-is-not-defined-with-onclick)
 
     ### 參考
     * [ES6 Modules in Chrome M61+](https://medium.com/dev-channel/es6-modules-in-chrome-canary-m60-ba588dfb8ab7)

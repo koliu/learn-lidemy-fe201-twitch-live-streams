@@ -108,7 +108,12 @@ const lang = document.querySelector(".lang");
 function initI18N() {
     lang.innerHTML = "";
     Object.keys(window.I18N).forEach(key => {
-        lang.innerHTML += `<div class="btn-${key}" onclick="changeLanguage('${key}')">${window.I18N[key].LANG}</div>`;
+        let div = document.createElement("div");
+        let text = document.createTextNode(window.I18N[key].LANG);
+        div.appendChild(text);
+        lang.appendChild(div);
+        div.addEventListener("click", () => changeLanguage(key));
+        div.classList.add(`btn-${key}`);
     });
 }
 

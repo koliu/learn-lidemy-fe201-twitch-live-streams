@@ -127,4 +127,12 @@
     * [document.querySelector](https://developer.mozilla.org/zh-TW/docs/Web/API/Document/querySelector)
     * [You-Dont-Need-jQuery](https://github.com/nefe/You-Dont-Need-jQuery/blob/master/README.zh-CN.md)
     * [javascript 30](https://javascript30.com/)
+
+## HW7: i18n
+
+    ### Note:
+    * 利用 window.I18N 全域物件載入不同的語言檔(lang-*.js)
+    * 可依選擇的 lang 來切換頻道
+    * 依 window.I18N 自動產生頻道切換按鈕
+
 ---

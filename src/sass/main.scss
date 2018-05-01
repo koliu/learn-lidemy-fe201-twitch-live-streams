@@ -25,18 +25,18 @@ body {
 
 .item {
     width: 330px;
-    height: 200px; // border: 1px dotted green;
+    height: 235px; // border: 1px dotted green;
     margin: 15px 10px;
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
-    transition: filter .4s, box-shadow .8s;
+    transition: filter .3s, box-shadow .2s;
 }
 
 .item:hover {
     cursor: pointer;
-    box-shadow: 2px 2px 5px 2px rgba(232, 245, 53, 0.3);
+    box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.4);
     filter: brightness(1.35);
 }
 
@@ -45,7 +45,7 @@ body {
     align-items: center;
     position: relative;
     max-height: 30%; // border: 3px dashed pink;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(23, 22, 22, 0.68);
     padding: 10px;
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
@@ -53,7 +53,7 @@ body {
 }
 
 .content:hover {
-    background-color: rgba(0, 153, 255, 0.3);
+    background-color: rgba(253, 18, 69, 0.548);
 }
 
 .avatar {

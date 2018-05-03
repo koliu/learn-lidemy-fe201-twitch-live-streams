@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
+    "scripts": {
+        "build-prod": "set NODE_ENV=prod && webpack",
+        "build": "set NODE_ENV=dev && webpack"
+    },
     "devDependencies": {
         "autoprefixer": "^8.4.1",
         "babel-core": "^6.26.3",

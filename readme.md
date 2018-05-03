@@ -183,7 +183,12 @@
         * 新增 i18n.js 來處理語言的設定檔對應及工具
         * 將 index.jade 的 script type 改為 module
             * 改為模組後 hardcode 的 onclick 會失效，必須改為 addEventListener
-
+    2. 在根目新增 webpack.config.js
+    3. 開始設定打包 index.js 及其相依模組 成為單一的 bundle.js
+        * 設定 webpack.config.js 中的 entry, output, module(babel-loader)
+        * 在 package.json 的 script 加入自訂 webpack build 指令
+            * 可使用 set NODE_ENV=dev 來指定 process.env.NODE_ENV 的值，如此可在 webpack.config.js 中做到環境設定切分。
+            * 加入 script 後，可用 npm run [自訂的指令名] 來執行。
 
     ### 參考：
     * [我也想要模組化開發：Webpack](https://ithelp.ithome.com.tw/articles/10188007)

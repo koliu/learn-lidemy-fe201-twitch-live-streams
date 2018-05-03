@@ -1,0 +1,4 @@
+export default {
+    TITLE: "中文頻道",
+    LANG: "中文"
+}

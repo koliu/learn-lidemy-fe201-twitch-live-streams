@@ -93,7 +93,7 @@ const webpackConfig = {
         new HtmlWebpackPlugin({
             /** Required **/
             // Inject style, script
-            inject: false,
+            inject: true,
             template: `${CONFIG.SRC_PATH}/index.tmpl.pug`,
 
             /** Optional **/
@@ -108,11 +108,29 @@ switch (process.env.NODE_ENV.trim()) {
     case "dev":
         webpackConfig.devtool = '#eval-source-map';
         webpackConfig.output.filename = 'bundle.js';
+        webpackConfig.devServer = {
+            // root path of server, default is root of project
+            contentBase: CONFIG.BUILD_PATH,
+            // 此處設成 true，代表 404 都指向 index.html
+            historyApiFallback: true,
+            // watch & auto reload page (default: true)
+            // inline: false,
+            port: 28080,
+        };
         webpackConfig.plugins.push(new ExtractTextPlugin("index.css"));
         break;
     case "prod":
         webpackConfig.devtool = '#source-map';
         webpackConfig.output.filename = 'bundle-[chunkhash].js';
+        webpackConfig.devServer = {
+            // root path of server, default is root of project
+            contentBase: CONFIG.BUILD_PATH,
+            // 此處設成 true，代表 404 都指向 index.html
+            historyApiFallback: true,
+            // watch & auto reload page (default: true)
+            // inline: false,
+            port: 38080,
+        };
         webpackConfig.plugins.push(
             new webpack.BannerPlugin('版權所有，盜版必究！'),
             new UglifyJsPlugin(),

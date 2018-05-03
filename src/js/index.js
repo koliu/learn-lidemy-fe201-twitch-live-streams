@@ -1,6 +1,6 @@
 import AJAX from "./ajax";
 import { REGIONS } from "./i18n";
-import getLocaleString from "./i18n";
+import I18N from "./i18n";
 import CONSTANTS from "./constants";
 
 //使用 import 導入 css 檔，再由 style-loader 注入到 html.head
@@ -9,7 +9,8 @@ import style from '../sass/main.scss';
 let _game = "League of Legends",
     _limit = 20,
     _offset = 0,
-    _lan = getLocaleString(CONSTANTS.LOCALE.ID, REGIONS[CONSTANTS.REGION_ID.EN]),
+    _region = undefined,
+    _region_id = undefined,
     _loading = false;
 
 const twitchAPI = {
@@ -23,7 +24,7 @@ const twitchAPI = {
 }
 
 function getTwitchData(cb) {
-    AJAX(twitchAPI.getURI(_game, _limit, _offset, _lan), "GET", twitchAPI.headers)
+    AJAX(twitchAPI.getURI(_game, _limit, _offset, _region_id), "GET", twitchAPI.headers)
         .then(result => {
             cb(null, JSON.parse(result));
         })
@@ -110,7 +111,7 @@ function initI18N() {
     lang.innerHTML = "";
     for (let key in REGIONS) {
         let div = document.createElement("div");
-        let text = document.createTextNode(getLocaleString(CONSTANTS.LOCALE.LANG, REGIONS[key]));
+        let text = document.createTextNode(I18N.getLocaleString(CONSTANTS.LOCALE.LANG, REGIONS[key]));
         div.appendChild(text);
         lang.appendChild(div);
         div.addEventListener("click", () => changeLanguage(key));
@@ -118,17 +119,18 @@ function initI18N() {
     }
 }
 
-function changeLanguage(region_id) {
+function changeLanguage(region_id = CONSTANTS.REGION_ID.EN) {
     const region = REGIONS[region_id];
-    if (_loading || (region === _lan)) {
+    if (_loading || (region === _region)) {
         event.preventDefault();
         return false;
     }
     _loading = true;
-    title.textContent = getLocaleString(CONSTANTS.LOCALE.TITLE, region);
+    title.textContent = I18N.getLocaleString(CONSTANTS.LOCALE.TITLE, region);
 
     // reset items & props of Twitch
-    _lan = region;
+    _region = region;
+    _region_id = region_id;
     _offset = 0;
     document.querySelector(".list").innerHTML = "";
     updateLangBtns(region_id);

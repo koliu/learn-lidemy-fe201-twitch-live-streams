@@ -4,8 +4,11 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
+        "build": "set NODE_ENV=dev && webpack",
+        "start": "set NODE_ENV=dev && webpack-dev-server --progress",
+        "start-hot": "set NODE_ENV=dev && webpack-dev-server --open --hot --hot-only --progress",
         "build-prod": "set NODE_ENV=prod && webpack",
-        "build": "set NODE_ENV=dev && webpack"
+        "start-prod": "set NODE_ENV=prod && webpack-dev-server --progress"
     },
     "devDependencies": {
         "autoprefixer": "^8.4.1",

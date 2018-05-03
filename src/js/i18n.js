@@ -1,5 +1,6 @@
 import EN from "./i18n/en";
 import ZH_TW from "./i18n/zh_TW";
+import CONSTANTS from "./constants";
 
 const REGIONS = {};
 REGIONS[CONSTANTS.REGION_ID.EN] = EN;

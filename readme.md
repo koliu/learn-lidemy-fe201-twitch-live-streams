@@ -175,6 +175,19 @@
         - webpack-dev-server
         - webpack-merge
 
-    
+    #### 開始動手改造
+    1.由於原本的 i18n 是以 window.I18N 這個全域變教來實現，現在要改用 module 方式，所以先來改造
+        * 將 ajax.js 中 ajax 改為模組，並將其它抽出到 index.js 中
+        * 將 lang_*.js 拉到 js/i18n/ 下，並改為模組
+        * 新增 constants.js 來設定 REGION_ID, LOCALE_ID 的對應常數
+        * 新增 i18n.js 來處理語言的設定檔對應及工具
+        * 將 index.jade 的 script type 改為 module
+            * 改為模組後 hardcode 的 onclick 會失效，必須改為 addEventListener
+
+
+    ### 參考：
+    * [我也想要模組化開發：Webpack](https://ithelp.ithome.com.tw/articles/10188007)
+    * [Frontend Intermediate Course - 作業八](https://peggyloveslearning.blogspot.tw/2017/06/frontend-intermediate-course-homework-8.html)
+    * [學習｜Huli's Course#8｜Webpack](https://dezchuang.github.io/2017/06/04/013_huli-course-08/)
 
 ---

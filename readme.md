@@ -190,6 +190,14 @@
             * 可使用 set NODE_ENV=dev 來指定 process.env.NODE_ENV 的值，如此可在 webpack.config.js 中做到環境設定切分。
             * 加入 script 後，可用 npm run [自訂的指令名] 來執行。
     4. 加入 clean-webpack-plugin 自動在 build 前刪除 dist 目錄
+    5. 由於設定的內容有相關或外掛的設定有關，所以下面進行一次性調整到，設定細節的說明請參考[learn-webpack](https://github.com/koliu/learn-webpack/blob/master/webpack.common.js)
+        * 使用 sass-loader > post-loader > css-loader > style-loader，將 scss 轉成 css 並注入到 js
+        * 使用 pug-loader 把 pug 轉為 html
+        * 使用 ExtractTextPlugin 將 css 抽成獨立的檔案
+        * 使用 HtmlWebpackPlugin 將 pug 模版轉為 html
+            * 如果有用 ExtractTextPlugin 將會把該獨立的 css 檔以 link 插到產生的 html 檔的 head 中
+        * 使用 UglifyJsPlugin 來壓縮 js
+        * 使用 OccurrenceOrderPlugin 讓使用頻率高的模組用較短的 id
 
     ### 參考：
     * [我也想要模組化開發：Webpack](https://ithelp.ithome.com.tw/articles/10188007)

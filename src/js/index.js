@@ -1,6 +1,10 @@
 import AJAX from "./ajax";
-import { REGIONS, getLocaleString } from "./i18n";
+import { REGIONS } from "./i18n";
+import getLocaleString from "./i18n";
 import CONSTANTS from "./constants";
+
+//使用 import 導入 css 檔，再由 style-loader 注入到 html.head
+import style from '../sass/main.scss';
 
 let _game = "League of Legends",
     _limit = 20,

@@ -1,5 +1,8 @@
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const CONFIG = {
     BUILD_PATH: `${__dirname}/dist/`,
@@ -46,7 +49,6 @@ const webpackConfig = {
     // 你要輸出到哪裡
     output: {
         path: CONFIG.BUILD_PATH,
-        filename: 'bundle.js'
     },
 
     // 載入哪些類型的檔案
@@ -55,22 +57,67 @@ const webpackConfig = {
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel-loader', // npm install babel-loader
-        }]
+        }, {
+            test: /(\.scss|\.css)$/,
+            // 同時使用多個 loader 來解析 css
+            // 順序：下(先用) -> 上(後用)
+            use: ExtractTextPlugin.extract({
+                fallback: "style-loader",
+                use: [{
+                    loader: "css-loader",
+                    options: {
+                        // 啟用 css modules
+                        modules: false,
+                        // 指定 css 的類別名稱，預設為 import { className } from "./style.css" 的 className
+                        // localIdentName: '[name]__[local]--[hash:base64:5]',
+                        url: false,
+                        minimize: true,
+                        sourceMap: true
+                    }
+                }, {
+                    loader: "postcss-loader",
+                }, {
+                    loader: "sass-loader",
+                }]
+            })
+        }, {
+            test: /(\.pug|\.jade)$/,
+            use: {
+                loader: "pug-loader"
+            },
+            exclude: "/node_modules/"
+        }, ]
     },
 
     plugins: [
+        new HtmlWebpackPlugin({
+            /** Required **/
+            // Inject style, script
+            inject: false,
+            template: `${CONFIG.SRC_PATH}/index.tmpl.pug`,
+
+            /** Optional **/
+            title: 'Custom template',
+            filetype: 'pug'
+        }),
         new CleanWebpackPlugin(CONFIG.PATHS_TO_CLEAN, CONFIG.CLEAN_OPTIONS),
     ]
 }
 
 switch (process.env.NODE_ENV.trim()) {
     case "dev":
-        webpackConfig.devtool = '#cheap-module-eval-source-map';
+        webpackConfig.devtool = '#eval-source-map';
+        webpackConfig.output.filename = 'bundle.js';
+        webpackConfig.plugins.push(new ExtractTextPlugin("index.css"));
         break;
     case "prod":
         webpackConfig.devtool = '#source-map';
+        webpackConfig.output.filename = 'bundle-[chunkhash].js';
         webpackConfig.plugins.push(
-            new webpack.BannerPlugin('版權所有，盜版必究！')
+            new webpack.BannerPlugin('版權所有，盜版必究！'),
+            new UglifyJsPlugin(),
+            new webpack.optimize.OccurrenceOrderPlugin(),
+            new ExtractTextPlugin("index-[chunkhash].css")
         );
         break;
 }

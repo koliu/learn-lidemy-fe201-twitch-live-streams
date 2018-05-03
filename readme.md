@@ -135,4 +135,46 @@
     * 可依選擇的 lang 來切換頻道
     * 依 window.I18N 自動產生頻道切換按鈕
 
+## HW8: Webpack
+
+    ### Note:
+
+    * Webpack 可視為模組打包機：分析專案結構，找到 Javascript modules 及其它瀏覽器不能識別的擴展語言(Scss, TypeScript...)，將它們轉換或打包成合適的格式給瀏覽器使用。
+    * webpack vs. Grunt/Gulp
+        * Grunt/Gulp: 在一個設定檔中指明具體的任務步驟(編譯、壓縮…)，工具之後可以自動完成這些任務。
+        * Webpack: 把專案視為一個整體，由一個主文件(如 index.js)開始進行分析相關依賴，使用 loaders 處理它們，最後打包成為一個(或多個)瀏覽器可視別的 Javascript 檔案。
+    
+    #### 安裝 Webpack：
+    
+    ```shell
+    ## 全域安裝(不建議)
+    ## yarn global add webpack
+    ## 安裝至專案目錄
+    yarn add --dev webpack webpack-cli
+
+    ## 確認
+    .\node_modules\.bin\webpack --version
+    ```
+
+    #### 安裝會用到的 Node package
+        - autoprefixer
+        - babel-core
+        - babel-loader
+        - babel-preset-env
+        - clean-webpack-plugin
+        - css-loader
+        - extract-text-webpack-plugin
+        - html-webpack-plugin
+        - node-sass
+        - postcss-loader
+        - pug
+        - pug-loader
+        - sass-loader
+        - style-loader
+        - uglifyjs-webpack-plugin
+        - webpack-dev-server
+        - webpack-merge
+
+    
+
 ---

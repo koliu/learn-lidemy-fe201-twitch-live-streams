@@ -189,6 +189,7 @@
         * 在 package.json 的 script 加入自訂 webpack build 指令
             * 可使用 set NODE_ENV=dev 來指定 process.env.NODE_ENV 的值，如此可在 webpack.config.js 中做到環境設定切分。
             * 加入 script 後，可用 npm run [自訂的指令名] 來執行。
+    4. 加入 clean-webpack-plugin 自動在 build 前刪除 dist 目錄
 
     ### 參考：
     * [我也想要模組化開發：Webpack](https://ithelp.ithome.com.tw/articles/10188007)

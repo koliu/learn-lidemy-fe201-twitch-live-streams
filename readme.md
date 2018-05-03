@@ -3,10 +3,10 @@
 ## HW1: [CSS 九宮格切板](https://codepen.io/KOLiu/pen/pLMbOM?editors=0100)
 
 ### 主要使用技巧
-    - 利用 flex 排版
-    - 利用 border-radius 來產生圓角矩形
-    - 利用 border-radius: 50% 來產生圓形頭像圖
-    - 利用 background-attachment:fixed 產生滾動視差效果
+- 利用 flex 排版
+- 利用 border-radius 來產生圓角矩形
+- 利用 border-radius: 50% 來產生圓形頭像圖
+- 利用 background-attachment:fixed 產生滾動視差效果
 
 ### 參考：
 

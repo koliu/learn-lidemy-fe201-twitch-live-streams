@@ -1,8 +1,11 @@
 # Learn-Lidemy-FE201-Twitch-Live-Streams
+
 ---
+
 ## HW1: [CSS 九宮格切板](https://codepen.io/KOLiu/pen/pLMbOM?editors=0100)
 
 ### 主要使用技巧
+
 - 利用 flex 排版
 - 利用 border-radius 來產生圓角矩形
 - 利用 border-radius: 50% 來產生圓形頭像圖
@@ -32,7 +35,7 @@
 
 ### 主要使用技巧
 
-  - 利用 Promise & XMLHttpRequest 進行非同步串接 Twitch 的 Streams
+- 利用 Promise & XMLHttpRequest 進行非同步串接 Twitch 的 Streams
 
 ### Note
 
@@ -79,7 +82,7 @@
             const lists = document.querySelector(".list");
             for (let stream of streams) {
                 lists.innerHTML += genItem(stream);
-            } 
+            }
         });
         ```
 
@@ -120,13 +123,13 @@
 
 ### Note:
 
-   - 缺點：
-        - 必須自行注意瀏覽器相容性
-        - 團隊協作困難
-        - 較難維護
-    - 優點：
-        - 效能高(規模小作用不大)
-        - 檔案大小
+- 缺點：
+  - 必須自行注意瀏覽器相容性
+  - 團隊協作困難
+  - 較難維護
+- 優點：
+  - 效能高(規模小作用不大)
+  - 檔案大小
 
 ### 參考：
 
@@ -149,11 +152,11 @@
 
 - Webpack 可視為模組打包機：分析專案結構，找到 Javascript modules 及其它瀏覽器不能識別的擴展語言(Scss, TypeScript...)，將它們轉換或打包成合適的格式給瀏覽器使用。
 - webpack vs. Grunt/Gulp
-    - Grunt/Gulp: 在一個設定檔中指明具體的任務步驟(編譯、壓縮…)，工具之後可以自動完成這些任務。
-    - Webpack: 把專案視為一個整體，由一個主文件(如 index.js)開始進行分析相關依賴，使用 loaders 處理它們，最後打包成為一個(或多個)瀏覽器可視別的 Javascript 檔案。
+  - Grunt/Gulp: 在一個設定檔中指明具體的任務步驟(編譯、壓縮…)，工具之後可以自動完成這些任務。
+  - Webpack: 把專案視為一個整體，由一個主文件(如 index.js)開始進行分析相關依賴，使用 loaders 處理它們，最後打包成為一個(或多個)瀏覽器可視別的 Javascript 檔案。
 
 #### 安裝 Webpack：
-    
+
 ```shell
 ## 全域安裝(不建議)
 ## yarn global add webpack
@@ -187,13 +190,12 @@ yarn add --dev webpack webpack-cli
 #### 開始動手改造
 
 1. 由於原本的 i18n 是以 window.I18N 這個全域變教來實現，現在要改用 module 方式，所以先來改造
-
-    - 將 ajax.js 中 ajax 改為模組，並將其它抽出到 index.js 中
-    - 將 lang_*.js 拉到 js/i18n/ 下，並改為模組
-    - 新增 constants.js 來設定 REGION_ID, LOCALE_ID 的對應常數
-    - 新增 i18n.js 來處理語言的設定檔對應及工具
-    - 將 index.jade 的 script type 改為 module
-        - 改為模組後 hardcode 的 onclick 會失效，必須改為 addEventListener
+  - 將 ajax.js 中 ajax 改為模組，並將其它抽出到 index.js 中
+  - 將 lang_*.js 拉到 js/i18n/ 下，並改為模組
+  - 新增 constants.js 來設定 REGION_ID, LOCALE_ID 的對應常數
+  - 新增 i18n.js 來處理語言的設定檔對應及工具
+  - 將 index.jade 的 script type 改為 module
+    - 改為模組後 hardcode 的 onclick 會失效，必須改為 addEventListener
 2. 在根目新增 webpack.config.js
 3. 開始設定打包 index.js 及其相依模組 成為單一的 bundle.js
     - 設定 webpack.config.js 中的 entry, output, module(babel-loader)
@@ -217,5 +219,106 @@ yarn add --dev webpack webpack-cli
     - [Frontend Intermediate Course - 作業八](https://peggyloveslearning.blogspot.tw/2017/06/frontend-intermediate-course-homework-8.html)
     - [學習｜Huli's Course#8｜Webpack](https://dezchuang.github.io/2017/06/04/013_huli-course-08/)
     - [解決 Webpack 跑 bundle 發出 Unexpected token import 的 error](https://medium.com/@mvpdw06/%E8%A7%A3%E6%B1%BA-webpack-%E8%B7%91-bundle-%E7%99%BC%E5%87%BA-unexpected-token-import-%E7%9A%84-error-aefd15bfd2e7)
+
+---
+
+## HW10: [改掉你的壞習慣：ESLint 與 standard](https://lidemy.teachable.com/courses/185961/lectures/2838090)
+
+### ESLint
+
+#### Install: 不安裝到全域是因為專案可能採用不同的規則所使用的版本可能不同。
+
+```shell
+yarn add --dev eslint
+```
+
+#### Setup for VSCode
+
+1. 安裝 VSCode 中的 ESLint 套件：VSCode 預設應已有安裝。
+2. 在專案下指令 ***.\node_modules\.bin\eslint --init*** 來設定 ESLint：
+    1. Q: How would you like to configure ESLint? 選 Use a popular style guide(使用主流的 Style Guide)，這個選項需要 package.json，若沒有的話要先 ***npm init*** 後，再重來一次。
+    2. Q: Which style guide do you want to follow? 選 [Airbnb](https://github.com/airbnb/javascript)
+    3. Q: What format do you want your config file to be in? 選 JavaScript
+    4. 它會自動安裝 eslint-config-airbnb-base@latest 的 peerDependencies: eslint-config-airbnb-base, eslint-plugin-import
+    5. 安裝完成後會在專案根目錄下看到 ***.eslintrc.js***
+    6. 重啟 VSCode 後，在 **OUTPUT** >> **ESLint** 看到 *ESLint server is running* 即設定成功。
+3. 接下來就是在打開 js 檔案後，把紅色底線的修正掉(滑鼠移到紅底線上方會提示該如何修改)。
+
+#### ESLint 警告及解法方式
+
+- [eslint] Expected linebreaks to be 'LF' but found 'CRLF'. (linebreak-style)
+    - 主因是 windows 和 unit OS 處理換行的方式不同
+    - 解決方式：
+        - 在各原始檔最上方加入：[參考](https://github.com/eslint/eslint/blob/master/docs/rules/linebreak-style.md)
+
+        ```js
+        /*eslint linebreak-style: ["error", "windows"]*/
+        ```
+
+        - 在 .eslintrc.js 中設定：[參考](https://stackoverflow.com/questions/39114446/how-can-i-write-a-eslint-rule-for-linebreak-style-changing-depending-on-windo)
+
+        ```js
+        module.exports = {
+            "rules": {
+                "linebreak-style": ["error", "windows"] // "unix"
+            }
+        };
+        ```
+- [eslint] Strings must use singlequote.
+- [eslint] Split 'let' declarations into multiple statements. (one-var)
+- [eslint] Unexpected dangling '_' in '_game'. (no-underscore-dangle)
+- [eslint] Expected indentation of 2 spaces but found 4. (indent)
+- [eslint] Unary operator '++' used. (no-plusplus)
+
+  ```js
+  // bad
+  queryIndex++;
+
+  // good
+  queryIndex += 1;
+  ```
+
+- [eslint] iterators/generators require regenerator-runtime, which is too heavyweight for this guide to allow them. Separately, loops should be avoided in favor of array iterations. (no-restricted-syntax)
+  - [Caught between two no-restricted-syntax violations](https://stackoverflow.com/questions/47213651/caught-between-two-no-restricted-syntax-violations)
+
+  ```js
+  // bad
+  for (const stream of streams) {
+    lists.innerHTML += genItem(stream);
+    queryIndex++;
+  }
+
+  // good
+  streams.forEach((stream) => {
+    lists.innerHTML += genItem(stream);
+    queryIndex += 1;
+  });
+  ```
+
+- [eslint] 'document' is not defined. (no-undef) / [eslint] 'window' is not defined. (no-undef)
+  - [Specifying Environments](https://eslint.org/docs/user-guide/configuring.html#specifying-environments)
+  - [ESLint - “window” is not defined.](https://stackoverflow.com/questions/30398825/eslint-window-is-not-defined-how-to-allow-global-variables-in-package-json/39331966)
+
+  ```js
+  //.eslintrc.js
+  "env": {
+      "browser": true,
+      "node": true
+    },
+  ```
+
+
+```json
+// VSCode config
+"editor.tabSize": 2,
+"editor.insertSpaces": true,
+"editor.detectIndentation": false,
+```
+
+#### ref:
+
+- [在 VSCode 啟用程式碼規範工具 (ESLint)](https://wcc723.github.io/tool/2017/11/09/coding-style/)
+- [搞懂 ESLint 並快速打造舒適的 JavaScript 開發環境](https://suitejay.io/2017/05/03/%E6%90%9E%E6%87%82-eslint-%E4%B8%A6%E5%BF%AB%E9%80%9F%E6%89%93%E9%80%A0%E8%88%92%E9%81%A9%E7%9A%84-JavaScript-%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/)
+- [你可能不知道的 JavaScript 代码规范](https://calpa.me/2017/11/08/you-dont-know-javascript-eslint-config/)
 
 ---

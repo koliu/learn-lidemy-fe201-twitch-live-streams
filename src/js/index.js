@@ -1,55 +1,37 @@
-import AJAX from "./ajax";
-import { REGIONS } from "./i18n";
-import I18N from "./i18n";
-import CONSTANTS from "./constants";
+import AJAX from './ajax';
+import I18N, { REGIONS } from './i18n';
+import CONSTANTS from './constants';
 
-//使用 import 導入 css 檔，再由 style-loader 注入到 html.head
+// 使用 import 導入 css 檔，再由 style-loader 注入到 html.head
 import style from '../sass/main.scss';
 
-let _game = "League of Legends",
-    _limit = 20,
-    _offset = 0,
-    _region = undefined,
-    _region_id = undefined,
-    _loading = false;
+const game = 'League of Legends';
+const queryLimit = 20;
+let queryIndex = 0;
+let cachedRegion;
+let cachedRegionId;
+let isLoading = false;
 
 const twitchAPI = {
-    baseURL: "https://api.twitch.tv/kraken/streams/",
-    headers: {
-        "client-id": "2ptsb12qaqxechb7k5u7332ranqezr"
-    },
-    getURI(game, limit, offset, lan) {
-        return `${this.baseURL}?game=${game}&limit=${limit}&offset=${offset}&language=${lan}`;
-    }
-}
+  baseURL: 'https://api.twitch.tv/kraken/streams/',
+  headers: {
+    'client-id': '2ptsb12qaqxechb7k5u7332ranqezr',
+  },
+  getURI(gameName, limit, offset, lan) {
+    return `${this.baseURL}?game=${gameName}&limit=${limit}&offset=${offset}&language=${lan}`;
+  },
+};
 
 function getTwitchData(cb) {
-    AJAX(twitchAPI.getURI(_game, _limit, _offset, _region_id), "GET", twitchAPI.headers)
-        .then(result => {
-            cb(null, JSON.parse(result));
-        })
-        .catch(err => cb(err));
+  AJAX(twitchAPI.getURI(game, queryLimit, queryIndex, cachedRegionId), 'GET', twitchAPI.headers)
+    .then((result) => {
+      cb(null, JSON.parse(result));
+    })
+    .catch(err => cb(err));
 }
 
-function loadTwitchData() {
-    getTwitchData((err, data) => {
-        if (err) {
-            return console.log(err);
-        }
-
-        const { streams } = data;
-        const lists = document.querySelector(".list");
-        for (const stream of streams) {
-            lists.innerHTML += genItem(stream);
-            _offset++;
-        }
-        _loading = false;
-    });
-}
-
-function genItem(data) {
-    return `
-    <div class="item">
+const genItem = (data) => {
+  const result = `<div class="item">
         <div class="preview">
             <img src="${data.preview.medium}" onload="this.style.opacity=1" />
         </div>
@@ -64,98 +46,119 @@ function genItem(data) {
         </div>
     </div>
     `;
+  return result;
+};
+
+function loadTwitchData() {
+  getTwitchData((err, data) => {
+    if (err) {
+      return console.log(err);
+    }
+
+    const { streams } = data;
+
+    const lists = window.document.querySelector('.list');
+    streams.forEach((stream) => {
+      lists.innerHTML += genItem(stream);
+      queryIndex += 1;
+    });
+    isLoading = false;
+    return true;
+  });
 }
 
 function getScrollXY() {
-    let x = 0,
-        y = 0;
+  let x = 0;
+  let y = 0;
 
-    if (typeof(window.pageYOffset) == 'number') {
-        //Netscape compliant
-        y = window.pageYOffset;
-        x = window.pageXOffset;
-    } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
-        //DOM compliant
-        y = document.body.scrollTop;
-        x = document.body.scrollLeft;
-    } else if (document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
-        //IE6 standards compliant mode
-        y = document.documentElement.scrollTop;
-        x = document.documentElement.scrollLeft;
-    }
-    return { x, y };
+  if (typeof (window.pageYOffset) === 'number') {
+    // Netscape compliant
+    y = window.pageYOffset;
+    x = window.pageXOffset;
+  } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
+    // DOM compliant
+    y = document.body.scrollTop;
+    x = document.body.scrollLeft;
+  } else if (document.documentElement
+    && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
+    // IE6 standards compliant mode
+    y = document.documentElement.scrollTop;
+    x = document.documentElement.scrollLeft;
+  }
+  return { x, y };
 }
 
 function getDocHeight() {
-    return Math.max(
-        document.body.scrollHeight,
-        document.body.offsetHeight,
-        document.body.clientHeight,
-        document.documentElement.scrollHeight,
-        document.documentElement.offsetHeight,
-        document.documentElement.clientHeight,
-    );
+  return Math.max(
+    document.body.scrollHeight,
+    document.body.offsetHeight,
+    document.body.clientHeight,
+    document.documentElement.scrollHeight,
+    document.documentElement.offsetHeight,
+    document.documentElement.clientHeight,
+  );
 }
 
 function isReachBottom(prefix = 0) {
-    const scrollHeight = getScrollXY().y;
-    const windowInnerHeight = window.innerHeight;
-    const bodyHeight = getDocHeight();
-    return bodyHeight - (windowInnerHeight + scrollHeight) <= prefix;
+  const scrollHeight = getScrollXY().y;
+  const windowInnerHeight = window.innerHeight;
+  const bodyHeight = getDocHeight();
+  return bodyHeight - (windowInnerHeight + scrollHeight) <= prefix;
 }
 
-const title = document.querySelector(".title");
-const lang = document.querySelector(".lang");
+const title = document.querySelector('.title');
+const lang = document.querySelector('.lang');
 
-function initI18N() {
-    lang.innerHTML = "";
-    for (let key in REGIONS) {
-        let div = document.createElement("div");
-        let text = document.createTextNode(I18N.getLocaleString(CONSTANTS.LOCALE.LANG, REGIONS[key]));
-        div.appendChild(text);
-        lang.appendChild(div);
-        div.addEventListener("click", () => changeLanguage(key));
-        div.classList.add(`btn-${key}`);
+const updateLangBtns = (regionId) => {
+  lang.childNodes.forEach((child) => {
+    const childClasses = child.classList;
+    if (childClasses.contains(`btn-${regionId}`)) {
+      childClasses.add('lang-selected');
+    } else {
+      childClasses.remove('lang-selected');
     }
-}
+  });
+};
 
-function changeLanguage(region_id = CONSTANTS.REGION_ID.EN) {
-    const region = REGIONS[region_id];
-    if (_loading || (region === _region)) {
-        event.preventDefault();
-        return false;
-    }
-    _loading = true;
-    title.textContent = I18N.getLocaleString(CONSTANTS.LOCALE.TITLE, region);
+const changeLanguage = (regionId = CONSTANTS.REGION_ID.EN) => {
+  const region = REGIONS[regionId];
+  if (isLoading || (region === cachedRegion)) {
+    window.event.preventDefault();
+    return false;
+  }
+  isLoading = true;
+  title.textContent = I18N.getLocaleString(CONSTANTS.LOCALE.TITLE, region);
 
-    // reset items & props of Twitch
-    _region = region;
-    _region_id = region_id;
-    _offset = 0;
-    document.querySelector(".list").innerHTML = "";
-    updateLangBtns(region_id);
-    setTimeout(loadTwitchData, 50);
-}
+  // reset items & props of Twitch
+  cachedRegion = region;
+  cachedRegionId = regionId;
+  queryIndex = 0;
+  document.querySelector('.list').innerHTML = '';
+  updateLangBtns(regionId);
+  setTimeout(loadTwitchData, 50);
+  return true;
+};
 
-function updateLangBtns(region_id) {
-    lang.childNodes.forEach(child => {
-        const childClasses = child.classList;
-        if (childClasses.contains(`btn-${region_id}`)) {
-            childClasses.add('lang-selected');
-        } else {
-            childClasses.remove('lang-selected');
-        }
-    });
-}
+const initI18N = () => {
+  lang.innerHTML = '';
+  Object.keys(REGIONS).forEach((key) => {
+    const div = document.createElement('div');
+    const text = document.createTextNode(I18N.getLocaleString(CONSTANTS.LOCALE.LANG, REGIONS[key]));
+    div.appendChild(text);
+    lang.appendChild(div);
+    div.addEventListener('click', () => changeLanguage(key));
+    div.classList.add(`btn-${key}`);
+  });
+};
 
-window.addEventListener("load", () => {
-    initI18N();
-    changeLanguage();
+window.addEventListener('load', () => {
+  initI18N();
+  changeLanguage();
 });
-window.addEventListener("scroll", () => {
-    if (!_loading && isReachBottom(300)) {
-        _loading = true;
-        console.log(`offset=${_offset}`)
-        loadTwitchData();
-    }
+window.addEventListener('scroll', () => {
+  if (!isLoading && isReachBottom(300)) {
+    isLoading = true;
+    console.log(`offset=${queryIndex}`);
+    loadTwitchData();
+  }
 });

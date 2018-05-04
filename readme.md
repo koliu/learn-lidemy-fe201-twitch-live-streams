@@ -210,10 +210,12 @@ yarn add --dev webpack webpack-cli
     - 使用 UglifyJsPlugin 來壓縮 js
     - 使用 OccurrenceOrderPlugin 讓使用頻率高的模組用較短的 id
 6. 使用 webpack-dev-server 在本機跑專案
+7. 如果 webpack.config.js 中要使用 ES6 import 語法時，必須將檔名改為 webpack.config.babel.js
 
     ### 參考：
     - [我也想要模組化開發：Webpack](https://ithelp.ithome.com.tw/articles/10188007)
     - [Frontend Intermediate Course - 作業八](https://peggyloveslearning.blogspot.tw/2017/06/frontend-intermediate-course-homework-8.html)
     - [學習｜Huli's Course#8｜Webpack](https://dezchuang.github.io/2017/06/04/013_huli-course-08/)
+    - [解決 Webpack 跑 bundle 發出 Unexpected token import 的 error](https://medium.com/@mvpdw06/%E8%A7%A3%E6%B1%BA-webpack-%E8%B7%91-bundle-%E7%99%BC%E5%87%BA-unexpected-token-import-%E7%9A%84-error-aefd15bfd2e7)
 
 ---

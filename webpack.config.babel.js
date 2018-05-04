@@ -1,8 +1,8 @@
-const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+import webpack from 'webpack';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 const CONFIG = {
     BUILD_PATH: `${__dirname}/dist/`,
@@ -140,4 +140,4 @@ switch (process.env.NODE_ENV.trim()) {
         break;
 }
 
-module.exports = webpackConfig;
+export default webpackConfig;

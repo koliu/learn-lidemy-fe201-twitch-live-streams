@@ -1,5 +1,5 @@
-import EN from "./i18n/en";
-import ZH_TW from "./i18n/zh_TW";
+import EN from "./i18n/en.json";
+import ZH_TW from "./i18n/zh_TW.json";
 import CONSTANTS from "./constants";
 
 const REGIONS = {};

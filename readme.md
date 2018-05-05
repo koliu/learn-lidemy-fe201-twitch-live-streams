@@ -157,7 +157,7 @@
 
 #### 安裝 Webpack：
 
-```shell
+```sh
 ## 全域安裝(不建議)
 ## yarn global add webpack
 ## 安裝至專案目錄
@@ -228,11 +228,11 @@ yarn add --dev webpack webpack-cli
 
 #### Install: 不安裝到全域是因為專案可能採用不同的規則所使用的版本可能不同。
 
-```shell
+```sh
 yarn add --dev eslint
 ```
 
-#### Setup for VSCode
+#### Setup Airbnb for VSCode
 
 1. 安裝 VSCode 中的 ESLint 套件：VSCode 預設應已有安裝。
 2. 在專案下指令 ***.\node_modules\.bin\eslint --init*** 來設定 ESLint：
@@ -244,7 +244,7 @@ yarn add --dev eslint
     6. 重啟 VSCode 後，在 **OUTPUT** >> **ESLint** 看到 *ESLint server is running* 即設定成功。
 3. 接下來就是在打開 js 檔案後，把紅色底線的修正掉(滑鼠移到紅底線上方會提示該如何修改)。
 
-#### ESLint 警告及解法方式
+##### ESLint 警告及解法方式
 
 - [eslint] Expected linebreaks to be 'LF' but found 'CRLF'. (linebreak-style)
     - 主因是 windows 和 unit OS 處理換行的方式不同
@@ -307,13 +307,59 @@ yarn add --dev eslint
     },
   ```
 
+  ```json
+  // VSCode config
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  ```
 
-```json
-// VSCode config
-"editor.tabSize": 2,
-"editor.insertSpaces": true,
-"editor.detectIndentation": false,
-```
+#### Setup Standard for VSCode
+
+- Standard 生態圈
+  - [standard](https://github.com/standard/standard): 安裝後即可執行 standard 命令執行，結果會列在 terminal 中。
+
+  ```sh
+  ## install
+  yarn add --dev standard
+
+  ## usage
+  ./node_modules/.bin/standard
+  ```
+
+  - [snazzy](https://github.com/standard/snazzy): 美化 standard 輸出結果
+
+  ```sh
+  ## install
+  yarn add --dev snazzy
+
+  ## usage
+  ./node_modules/.bin/standard --verbose | ./node_modules/.bin/snazzy
+  ```
+
+  - [semistandard](https://github.com/standard/snazzy): 含分號的 standard 版本
+
+  ```sh
+  ## install
+  yarn add --dev semistandard
+
+  ## usage
+  ./node_modules/.bin/semistandard
+  ```
+
+  - [JavaScript Standard Style](https://marketplace.visualstudio.com/items?itemName=chenxsan.vscode-standardjs): VSCode Plugin, to integrate JavaScript Standard Style into VSCode. 作用類似於 ESLint。
+    1. Install the 'JavaScript Standard Style' extension
+    2. Install standard or semistandard
+    3. Disable the built-in VSCode validator
+
+    ```js
+    // VSCode settings.json
+    {
+      "javascript.validate.enable": false,
+
+      "standard.semistandard": true
+    }
+    ```
 
 #### ref:
 

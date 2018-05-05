@@ -12,6 +12,8 @@ let cachedRegion;
 let cachedRegionId;
 let isLoading = false;
 
+
+// FIXME: fdafds
 const twitchAPI = {
   baseURL: 'https://api.twitch.tv/kraken/streams/',
   headers: {
@@ -58,6 +60,10 @@ function loadTwitchData () {
     const { streams } = data;
 
     const lists = window.document.querySelector('.list');
+    streams.forEach((stream) => {
+      lists.innerHTML += genItem(stream);
+      queryIndex += 1;
+    });
     streams.forEach((stream) => {
       lists.innerHTML += genItem(stream);
       queryIndex += 1;

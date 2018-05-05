@@ -1,9 +1,9 @@
 export default (url, method, headers = {}, data = null) =>
   new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
+    const xhr = new window.XMLHttpRequest();
     xhr.responseType = 'text';
     xhr.onreadystatechange = () => {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.readyState === window.XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
           resolve(xhr.responseText);
         } else {

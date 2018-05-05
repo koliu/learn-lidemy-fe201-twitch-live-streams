@@ -2,10 +2,10 @@
 export default {
   REGION_ID: {
     EN: 'en',
-    ZH_TW: 'zh-tw',
+    ZH_TW: 'zh-tw'
   },
   LOCALE: {
     TITLE: 'TITLE',
-    LANG: 'LANG',
-  },
+    LANG: 'LANG'
+  }
 };

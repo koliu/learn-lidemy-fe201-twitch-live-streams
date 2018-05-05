@@ -15,14 +15,14 @@ let isLoading = false;
 const twitchAPI = {
   baseURL: 'https://api.twitch.tv/kraken/streams/',
   headers: {
-    'client-id': '2ptsb12qaqxechb7k5u7332ranqezr',
+    'client-id': '2ptsb12qaqxechb7k5u7332ranqezr'
   },
-  getURI(gameName, limit, offset, lan) {
+  getURI (gameName, limit, offset, lan) {
     return `${this.baseURL}?game=${gameName}&limit=${limit}&offset=${offset}&language=${lan}`;
-  },
+  }
 };
 
-function getTwitchData(cb) {
+function getTwitchData (cb) {
   AJAX(twitchAPI.getURI(game, queryLimit, queryIndex, cachedRegionId), 'GET', twitchAPI.headers)
     .then((result) => {
       cb(null, JSON.parse(result));
@@ -49,7 +49,7 @@ const genItem = (data) => {
   return result;
 };
 
-function loadTwitchData() {
+function loadTwitchData () {
   getTwitchData((err, data) => {
     if (err) {
       return console.log(err);
@@ -67,7 +67,7 @@ function loadTwitchData() {
   });
 }
 
-function getScrollXY() {
+function getScrollXY () {
   let x = 0;
   let y = 0;
 
@@ -79,8 +79,8 @@ function getScrollXY() {
     // DOM compliant
     y = document.body.scrollTop;
     x = document.body.scrollLeft;
-  } else if (document.documentElement
-    && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
+  } else if (document.documentElement &&
+    (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
     // IE6 standards compliant mode
     y = document.documentElement.scrollTop;
     x = document.documentElement.scrollLeft;
@@ -88,18 +88,18 @@ function getScrollXY() {
   return { x, y };
 }
 
-function getDocHeight() {
+function getDocHeight () {
   return Math.max(
     document.body.scrollHeight,
     document.body.offsetHeight,
     document.body.clientHeight,
     document.documentElement.scrollHeight,
     document.documentElement.offsetHeight,
-    document.documentElement.clientHeight,
+    document.documentElement.clientHeight
   );
 }
 
-function isReachBottom(prefix = 0) {
+function isReachBottom (prefix = 0) {
   const scrollHeight = getScrollXY().y;
   const windowInnerHeight = window.innerHeight;
   const bodyHeight = getDocHeight();

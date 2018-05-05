@@ -317,7 +317,10 @@ yarn add --dev eslint
 #### Setup Standard for VSCode
 
 - Standard 生態圈
-  - [standard](https://github.com/standard/standard): 安裝後即可執行 standard 命令執行，結果會列在 terminal 中。
+  - [standard](https://github.com/standard/standard):
+    - 安裝後即可執行 standard 命令執行，結果會列在 terminal 中。
+    - 它的理念是大家都 follow 同一準則，不需額外像 .eslintrc 的設定檔，所以不需要額外耗費精力去協調設定，這符合「約定大於配置」的精神。
+    - 它不是真實網路中的標準，只是主流中的其中一套工具。
 
   ```sh
   ## install
@@ -325,6 +328,18 @@ yarn add --dev eslint
 
   ## usage
   ./node_modules/.bin/standard
+  ```
+
+  ```js
+  // package.json
+
+  {
+    "standard": {
+      "ignore": [
+        "**/dist/"
+      ]
+    }
+  }
   ```
 
   - [snazzy](https://github.com/standard/snazzy): 美化 standard 輸出結果
@@ -360,6 +375,22 @@ yarn add --dev eslint
       "standard.semistandard": true
     }
     ```
+
+##### semistandard lints
+
+- [semistandard] Missing space before function parentheses. (space-before-function-paren): [參考](https://stackoverflow.com/questions/41150726/vs-code-space-before-function-parentheses)
+
+```js
+// VSCode settings.json
+"javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+"editor.formatOnType": true
+```
+
+- [semistandard] 'XMLHttpRequest' is not defined. (no-undef)
+```js
+new window.XMLHttpRequest(); // new XMLHttpRequest();
+```
+
 
 #### ref:
 

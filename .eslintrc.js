@@ -1,12 +1,11 @@
-// module.exports = {
-//   "extends": "standard",
-//   "env": {
-//     "browser": true,
-//     "node": true,
-//     "es6": true,
-//   },
-//   "rules": {
-//     "linebreak-style": ["error", "windows"] // "unix",
-
-//   }
-// };
+module.exports = {
+  "extends": "semistandard",
+  "env": {
+    "browser": true,
+    // "node": true,
+    // "es6": true,
+  },
+  "rules": {
+    // "linebreak-style": ["error", "windows"] // "unix",
+  }
+};

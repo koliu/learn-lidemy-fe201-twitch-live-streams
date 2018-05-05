@@ -387,10 +387,25 @@ yarn add --dev eslint
 ```
 
 - [semistandard] 'XMLHttpRequest' is not defined. (no-undef)
+
 ```js
 new window.XMLHttpRequest(); // new XMLHttpRequest();
 ```
 
+- Standard for ESLint
+  - Install
+
+  ```sh
+  yarn add --dev eslint-config-standard eslint-plugin-node eslint-plugin-promise eslint-plugin-standard
+
+  ## for semistandard
+  yarn add --dev eslint-config-semistandard
+  ```
+
+  ```js
+  // .eslintrc
+  "extends": "standard", // "semistandard"
+  ```
 
 #### ref:
 
